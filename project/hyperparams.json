@@ -1,0 +1,10 @@
+{
+    "num_episodes": 50,
+    "SCREEN_HEIGHT": 600,
+    "SCREEN_WIDTH": 800,
+    "buffer_size": 5000,
+    "batch_size": 32,
+    "epsilon": 0.3,
+    "epsilon_min": 0.01,
+    "epsilon_decay": 0.98
+}
