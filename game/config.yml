@@ -1,0 +1,31 @@
+# File: config.yml
+
+game_screen:
+  width: 800
+  height: 600
+
+game_mechanics:
+  gravity: 1
+  flap_strength: 50
+  pipe_speed: 2
+  pipe_width: 100
+  pipe_gap: 200
+  character_size: 50
+
+initial_positions:
+  character_x: 350
+  character_y: 250
+  pipe_x: 800
+  pipe_height: 300
+
+ai_config:
+  epsilon: 0.3
+  epsilon_min: 0.01
+  epsilon_decay: 0.98
+  gamma: 0.98
+  learning_rate: 0.0001
+  batch_size: 32
+  buffer_size: 5000
+
+other_settings:
+  random_seed: 42
