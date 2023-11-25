@@ -1,7 +1,11 @@
-import random
 import torch
+import random
 
-def update_q_values(replay_buffer, q_network, optimizer, criterion, batch_size, gamma):
+def update_q_values(replay_buffer, q_network, optimizer, criterion, config):
+    # Use values from configuration
+    batch_size = config['ai_config']['batch_size']
+    gamma = config['ai_config']['gamma']
+
     # Check if the replay buffer has enough samples
     if len(replay_buffer) < batch_size:
         return

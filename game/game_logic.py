@@ -1,12 +1,8 @@
 import sys
 import random
 import pygame
-from utils.utils import load_config
 
-# Load configuration
-config = load_config('configs/config.yml')
-
-def init_game_variables():
+def init_game_variables(config):
     # Using values from configuration
     chr_x = config['initial_positions']['character_x']
     chr_y = config['initial_positions']['character_y']
@@ -38,7 +34,7 @@ def handle_events():
                 sys.exit()
     return running
 
-def update_game_state(action, chr_y, pipe_x, pipe_height):
+def update_game_state(action, chr_y, pipe_x, pipe_height, config):
     # Using values from configuration
     gravity = config['game_mechanics']['gravity']
     flap_strength = config['game_mechanics']['flap_strength']
@@ -59,11 +55,12 @@ def update_game_state(action, chr_y, pipe_x, pipe_height):
 
     return chr_y, pipe_x, pipe_height
 
-def check_collision_and_update_reward(chr_x, chr_y, pipe_x, pipe_height, screen_width):
+def check_collision_and_update_reward(chr_x, chr_y, pipe_x, pipe_height, config):
     # Using values from configuration
     character_size = config['game_mechanics']['character_size']
     pipe_width = config['game_mechanics']['pipe_width']
     screen_height = config['game_screen']['height']
+    screen_width = config['game_screen']['width']
     collision_penalty = -10  # These could also be moved to config
     pass_reward = 1
     height_penalty = -0.1

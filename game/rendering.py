@@ -1,17 +1,11 @@
 import pygame
-from utils.utils import load_config
 
-# Load the configuration settings
-config = load_config('configs/config.yml')
-
-def init_pygame():
+def init_pygame(screen_width, screen_height):
     pygame.init()
-    screen_width = config['game_screen']['width']
-    screen_height = config['game_screen']['height']
     screen = pygame.display.set_mode((screen_width, screen_height))
     return screen
 
-def render_game_screen(screen, chr_x, chr_y, pipe_x, pipe_height):
+def render_game_screen(screen, chr_x, chr_y, pipe_x, pipe_height, config):
     # Access configuration values
     pipe_width = config['game_mechanics']['pipe_width']
     pipe_gap = config['game_mechanics']['pipe_gap']
