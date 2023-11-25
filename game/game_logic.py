@@ -4,7 +4,7 @@ import pygame
 from utils.utils import load_config
 
 # Load configuration
-config = load_config('game/config.yml')
+config = load_config('configs/config.yml')
 
 def init_game_variables():
     # Using values from configuration
