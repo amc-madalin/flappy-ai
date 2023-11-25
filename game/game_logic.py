@@ -80,7 +80,7 @@ def check_collision_and_update_reward(chr_x, chr_y, pipe_x, pipe_height, config)
     # Penalty for flying too high or too low
     elif chr_y <= 0 or chr_y >= screen_height - character_size:
         reward = height_penalty
-        done = True
+        done = False
     else:
         reward = 0
         done = False
