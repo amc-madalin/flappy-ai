@@ -6,7 +6,12 @@ def init_game_variables(config):
     # Using values from configuration
     chr_x = config['initial_positions']['character_x']
     chr_y = config['initial_positions']['character_y']
-    pipe_height = config['initial_positions']['pipe_height']
+    
+    # Randomize the starting pipe height within the specified range
+    pipe_height_min = config['initial_positions']['pipe_height_min']
+    pipe_height_max = config['initial_positions']['pipe_height_max']
+    
+    pipe_height = random.randint(pipe_height_min, pipe_height_max)
     pipe_x = config['initial_positions']['pipe_x']
     pipe_speed = config['game_mechanics']['pipe_speed']
     actions = [0, 1]  # Actions remain the same
