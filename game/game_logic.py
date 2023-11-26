@@ -1,4 +1,5 @@
 import sys
+import torch
 import random
 import pygame
 
@@ -60,22 +61,60 @@ def update_game_state(action, chr_y, pipe_x, pipe_height, config):
 
     return chr_y, pipe_x, pipe_height
 
+import torch
+
+def get_state_representation(chr_x, chr_y, pipe_x, pipe_height, config):
+    screen_height = config['game_screen']['height']
+    screen_width = config['game_screen']['width']
+    pipe_gap = config['game_mechanics']['pipe_gap']
+    character_size = config['game_mechanics']['character_size']
+
+    # Normalized vertical position of the character
+    normalized_chr_y = chr_y / screen_height
+
+    # Distance from the character's top to the bottom edge of the upper pipe
+    distance_to_upper_pipe = pipe_height - (chr_y + character_size)
+
+    # Distance from the character's bottom to the top edge of the lower pipe
+    lower_pipe_top_edge = pipe_height + pipe_gap
+    distance_to_lower_pipe = chr_y - lower_pipe_top_edge
+
+    # Horizontal Distance to the Next Pipe
+    distance_to_next_pipe = pipe_x - chr_x
+
+    # Normalizing the distances
+    normalized_distance_to_upper_pipe = distance_to_upper_pipe / screen_height
+    normalized_distance_to_lower_pipe = distance_to_lower_pipe / screen_height
+    normalized_distance_to_next_pipe = distance_to_next_pipe / screen_width
+
+    # Create state tensor
+    state = torch.FloatTensor([
+        normalized_chr_y, 
+        normalized_distance_to_upper_pipe, 
+        normalized_distance_to_lower_pipe, 
+        normalized_distance_to_next_pipe
+    ])
+
+    return state
+
+
 def check_collision_and_update_reward(chr_x, chr_y, pipe_x, pipe_height, config):
     # Using values from configuration
     character_size = config['game_mechanics']['character_size']
     pipe_width = config['game_mechanics']['pipe_width']
+    pipe_gap = config['game_mechanics']['pipe_gap']
     screen_height = config['game_screen']['height']
     screen_width = config['game_screen']['width']
-    collision_penalty = -10  # These could also be moved to config
-    pass_reward = 1
-    height_penalty = -0.1
+    collision_penalty = config['game_mechanics']['collision_penalty']
+    pass_reward = config['game_mechanics']['pass_reward']
+    height_penalty = config['game_mechanics']['height_penalty']
 
     # Check for collision with upper pipe
     if chr_x < pipe_x + pipe_width and chr_x + character_size > pipe_x and chr_y < pipe_height:
         reward = collision_penalty
         done = True
     # Check for collision with lower pipe
-    elif chr_x < pipe_x + pipe_width and chr_x + character_size > pipe_x and chr_y + character_size > pipe_height + 200:
+    elif chr_x < pipe_x + pipe_width and chr_x + character_size > pipe_x and chr_y + character_size > pipe_height + pipe_gap:
         reward = collision_penalty
         done = True
     # Check if the character has successfully passed the pipe
@@ -90,6 +129,7 @@ def check_collision_and_update_reward(chr_x, chr_y, pipe_x, pipe_height, config)
         reward = 0
         done = False
 
-    new_state = [chr_y / screen_height, (pipe_height - chr_y) / screen_height, (pipe_x - chr_x) / screen_width]
+    # Use the existing state representation function
+    new_state = get_state_representation(chr_x, chr_y, pipe_x, pipe_height, config)
 
     return new_state, reward, done

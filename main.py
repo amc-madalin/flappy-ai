@@ -1,6 +1,6 @@
 # main.py
 from game.rendering import init_pygame, render_game_screen
-from game.game_logic import init_game_variables, handle_events, update_game_state, check_collision_and_update_reward
+from game.game_logic import init_game_variables, handle_events, update_game_state, check_collision_and_update_reward, get_state_representation
 from ai.q_network import init_q_network
 from ai.training import update_q_values
 from utils.utils import load_config
@@ -28,8 +28,9 @@ def main():
 
         while running:
             running = handle_events()
-            state = torch.FloatTensor([chr_y / config['game_screen']['height'], (pipe_height - chr_y) / config['game_screen']['height'], (pipe_x - chr_x) / config['game_screen']['width']])
-            
+            state = get_state_representation(
+                chr_x, chr_y, pipe_x, pipe_height, config
+                )
             if random.random() < epsilon:
                 action = random.choice(actions)
             else:
