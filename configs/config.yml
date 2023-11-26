@@ -5,18 +5,20 @@ game_screen:
   height: 600
 
 game_mechanics:
-  gravity: 1
-  flap_strength: 50
+  gravity: 5
+  flap_strength: 20
   pipe_speed: 2
   pipe_width: 100
   pipe_gap: 200
   character_size: 50
+  collision_penalty: -1  # Penalty for hitting a pipe
+  pass_reward: 1          # Reward for successfully passing a pipe
+  height_penalty: -0.1    # Penalty for flying too high or too low
 
 initial_positions:
   character_x: 350
   character_y: 250
   pipe_x: 800
-  # Define a range for the pipe height
   pipe_height_min: 100
   pipe_height_max: 400
 
