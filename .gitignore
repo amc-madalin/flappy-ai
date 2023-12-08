@@ -3,3 +3,7 @@ ai/__pycache__/
 game/__pycache__/
 experiments_local/
 runs_local/
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+*/*/*/.DS_Store
