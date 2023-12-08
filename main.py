@@ -47,21 +47,21 @@ def main():
 
             update_q_values(replay_buffer, q_network, optimizer, criterion, config)
             epsilon = max(epsilon_min, epsilon_decay * epsilon)
-            
-            
 
             if done:
                 break
-
+        model_save_path = save_path + str(episode + 1) + ".pth"
+        # Save the model and training state
+        torch.save({
+            'episode': episode + 1,
+            'model_state_dict': q_network.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'replay_buffer': replay_buffer
+        }, model_save_path)
+        
         print(f"Episode {episode + 1} completed. Epsilon: {epsilon}")
 
-    # Save the model and training state
-    torch.save({
-        'episode': episode + 1,
-        'model_state_dict': q_network.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'replay_buffer': replay_buffer
-    }, save_path)
+
     
     pygame.quit()
 
