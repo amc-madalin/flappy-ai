@@ -57,7 +57,7 @@ if __name__ == "__main__":
     config = load_config('configs/config.yml')
 
     # Specify the path to your saved model
-    model_path = '20.pth'
+    model_path = './model/best_bird.pth'
 
     # Call the test game function
     test_game(model_path, config)
