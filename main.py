@@ -18,8 +18,7 @@ def main():
     q_network, optimizer, criterion = init_q_network()  # Assuming this doesn't need config
     num_episodes = config['ai_config']['num_episodes']
     buffer_size = config['ai_config']['buffer_size']
-    batch_size = config['ai_config']['batch_size']
-    gamma = config['ai_config']['gamma']
+    save_path = config['model']['save_path']
     replay_buffer = []
 
     for episode in range(num_episodes):
@@ -48,12 +47,22 @@ def main():
 
             update_q_values(replay_buffer, q_network, optimizer, criterion, config)
             epsilon = max(epsilon_min, epsilon_decay * epsilon)
+            
+            
 
             if done:
                 break
 
         print(f"Episode {episode + 1} completed. Epsilon: {epsilon}")
 
+    # Save the model and training state
+    torch.save({
+        'episode': episode + 1,
+        'model_state_dict': q_network.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'replay_buffer': replay_buffer
+    }, save_path)
+    
     pygame.quit()
 
 if __name__ == "__main__":

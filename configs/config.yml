@@ -34,3 +34,7 @@ ai_config:
 
 other_settings:
   random_seed: 42
+
+model:
+  save_path: ./qmodel2.pth
+  load_path: ~
