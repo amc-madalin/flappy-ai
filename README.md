@@ -1,44 +1,59 @@
-# Project Structure
+# Flappy-AI with Reinforcement Learning
 
-This document outlines the folder and file structure of the project.
+This is a project that uses AI to train an agent to play a game. The project is structured as follows:
 
-## Main Application
+- `ai/`: Contains the code for the AI agent, including the Q network, replay buffer, and training logic.
+- `assets/`: Contains any assets used by the project.
+- `configs/`: Contains configuration files.
+- `environment.yml`: Contains the list of dependencies for the project.
+- `experiments/`: Contains any experimental code or data.
+- `game/`: Contains the game logic and rendering code.
+- `model/`: Contains the trained model.
+- `runs/`: Contains the output from training runs.
+- `utils/`: Contains utility code used across the project.
+- `train.py`: The main script to start training the agent.
+- `test_game.py`: The script to test the game without the agent.
 
-- `main.py`: The entry point of the application where the main function is located.
+## Installation
 
-## Game Module
+1. Clone the repository:
 
-This folder contains modules related to the game logic and rendering.
+```sh
+git clone https://github.com/amc-madalin/flappy-ai.git
+```
 
-- `game/`
-  - `config.py`: Contains game configurations like screen dimensions, gravity, etc.
-  - `game_logic.py`: Handles the game state updates, including character movements and pipe positions.
-  - `rendering.py`: Manages the rendering of the game screen, including drawing characters and pipes.
+2. Navigate to the project directory:
 
-## AI Module
+```sh
+cd flappy-ai
+```
 
-Dedicated to AI and neural network functionalities.
+3. Install the dependencies:
 
-- `ai/`
-  - `q_network.py`: Contains the QNetwork class definition and its methods.
-  - `training.py`: Manages the training loop, including updating the Q-values.
-  - `replay_buffer.py`: Manages the replay buffer's storage and retrieval of experiences.
+```sh
+conda env create -f environment.yml
+```
 
-## Utilities
+## Usage
 
-Contains utility functions or classes that can be used across the project.
+Activate environment:
 
-- `utils/`
-  - `utils.py`: General utility functions like weight initialization.
+```sh
+conda activate flappy-ai
+```
 
-## Tests
+To train the agent, run:
 
-Includes unit tests for your application.
+```sh
+python train.py
+```
 
-- `tests/`
-  - `test_game.py`: Test cases for the game logic to ensure it works as expected.
+To test the game, run:
 
-## Additional Files
+```sh
+python test_game.py
+```
 
-- `environment.yml`: Lists all the Python dependencies required for your project.
-- `README.md`: A Markdown file providing an overview of your project, how to set it up, and how to run it.
+## License
+
+This project is licensed under the MIT License.
