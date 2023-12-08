@@ -36,5 +36,5 @@ other_settings:
   random_seed: 42
 
 model:
-  save_path: ./qmodel2.pth
+  save_path: .experiments/qmodel.pth
   load_path: ~
