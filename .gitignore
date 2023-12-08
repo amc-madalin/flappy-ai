@@ -1,5 +1,5 @@
 *.pyc
 ai/__pycache__/
 game/__pycache__/
-experiments/
-runs/
+experiments_local/
+runs_local/
